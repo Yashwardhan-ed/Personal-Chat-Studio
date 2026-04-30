@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Persona Chat Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <h1>Persona Chat Studio</h1>
+          <p class="lede">
+            A clean, mobile-ready chatbot interface with three personalities, quick-start chips,
+            live persona switching, and a backend ready for real model calls.
+          </p>
+        </div>
+        <div class="status-card">
+          <span class="status-label">Active persona</span>
+          <strong id="activePersonaLabel">Anshuman Singh</strong>
+          <p id="activePersonaSubtitle">Vision, product thinking, and founder-style clarity</p>
+        </div>
+      </section>
+
+      <section class="app-card">
+        <div class="persona-tabs" id="personaTabs" role="tablist" aria-label="Persona switcher"></div>
+
+        <div class="hint-row">
+          <p>Switching personas resets the conversation so each prompt stays isolated.</p>
+          <p id="apiStatus">API ready to connect via <code>OPENAI_API_KEY</code>.</p>
+        </div>
+
+        <div class="suggestions" id="suggestions"></div>
+
+        <div class="chat-window" id="chatWindow" aria-live="polite"></div>
+
+        <div class="composer">
+          <textarea id="messageInput" rows="1" placeholder="Ask a question or start a conversation..."></textarea>
+          <button id="sendButton" type="button">Send</button>
+        </div>
+
+        <p class="error" id="errorMessage" hidden></p>
+      </section>
+    </main>
+
+    <template id="messageTemplate">
+      <div class="message">
+        <div class="bubble"></div>
+      </div>
+    </template>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
