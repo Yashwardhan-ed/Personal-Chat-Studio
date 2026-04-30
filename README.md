@@ -2,12 +2,6 @@
 
 A responsive starter app for the Scaler Academy prompt-engineering assignment. It includes three persona-specific prompt definitions, a clean chat UI, persona switching, quick suggestion chips, a typing state, and an Express backend that sends the correct system prompt with each request.
 
-## Live Demo
-
-
-## Screenshots
-
-
 ## Features
 
 - Three personas: Anshuman Singh, Abhimanyu Saxena, and Kshitij Mishra
