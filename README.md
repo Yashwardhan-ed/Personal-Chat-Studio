@@ -4,11 +4,9 @@ A responsive starter app for the Scaler Academy prompt-engineering assignment. I
 
 ## Live Demo
 
-Add your deployed URL here after publishing the app.
 
 ## Screenshots
 
-Add 2 to 3 screenshots of the running app here before final submission.
 
 ## Features
 
@@ -47,8 +45,8 @@ npm start
 
 Deploy the app to a Node-friendly host such as Render, Railway, or Fly.io. Make sure the deployment environment includes:
 
-- `OPENAI_API_KEY`
-- `OPENAI_MODEL` if you want to override the default
+- `GROQ_API_KEY`
+- The Groq model is configured in `server.js`
 - `PORT` if your host requires it
 
 Once deployed, replace the placeholder in the Live Demo section with the public URL.
@@ -59,6 +57,3 @@ Once deployed, replace the placeholder in the Live Demo section with the public 
 - [prompts.md](prompts.md) is the annotated documentation version required by the assignment.
 - [reflection.md](reflection.md) contains the 300-500 word reflection.
 
-## Notes
-
-This repository is a strong starter, but the assignment still expects you to deepen the persona research and refine the prompts before submission. The current prompt set is intentionally conservative so you can safely extend it without inventing unsupported details.

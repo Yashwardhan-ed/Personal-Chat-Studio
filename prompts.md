@@ -45,8 +45,6 @@ Notes:
 - The few-shot examples show the response length and practical bias expected from the live chat UI.
 - The constraints block prevents the model from drifting into generic startup advice.
 
-<!-- Comment: The annotation below explains how the prompt should feel in production, not just what it says. -->
-
 ## Abhimanyu Saxena
 
 ```text
