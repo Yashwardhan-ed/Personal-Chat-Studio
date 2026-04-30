@@ -1,58 +1,47 @@
-import express from 'express';
-import { prompts, personas } from '../src/prompts.js';
-import Groq from "groq-sdk";
-import serverless from "serverless-http";
+import { prompts } from '../src/prompts.js';
+import Groq from 'groq-sdk';
 
-const app = express();
-const model = "llama-3.1-8b-instant";
+const model = 'llama-3.1-8b-instant';
 
-app.use(express.json({ limit: '1mb' }));
+export default async function handler(req, res) {
+  if (!process.env.GROQ_API_KEY) {
+    res.status(500).json({ error: 'Missing GROQ_API_KEY' });
+    return;
+  }
 
-if (!process.env.GROQ_API_KEY) {
-  throw new Error("Missing GROQ_API_KEY");
-}
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
+  }
 
-const client = new Groq({
-  apiKey: process.env.GROQ_API_KEY
-});
-
-// routes (NO /api prefix)
-app.get('/personas', (req, res) => {
-  res.json({ personas });
-});
-
-app.post('/chat', async (req, res) => {
   const { personaId, messages } = req.body || {};
 
   if (!personaId || !prompts[personaId]) {
-    return res.status(400).json({ error: 'Unknown persona selected.' });
+    res.status(400).json({ error: 'Unknown persona selected.' });
+    return;
   }
 
   const systemPrompt = prompts[personaId];
-  let conversation = Array.isArray(messages) ? messages : [];
-
-  conversation = conversation.slice(-20);
+  const conversation = Array.isArray(messages) ? messages.slice(-20) : [];
 
   try {
+    const client = new Groq({
+      apiKey: process.env.GROQ_API_KEY,
+    });
+
     const completion = await client.chat.completions.create({
       model,
       temperature: 0.7,
-      messages: [
-        { role: "system", content: systemPrompt },
-        ...conversation
-      ]
+      messages: [{ role: 'system', content: systemPrompt }, ...conversation],
     });
 
-    return res.json({
-      reply: completion.choices?.[0]?.message?.content || ''
+    res.status(200).json({
+      reply: completion.choices?.[0]?.message?.content || '',
     });
-
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      error: error.message || 'Chat failed'
+    console.error('Groq error:', error);
+    res.status(500).json({
+      error: error.message || 'Chat failed',
     });
   }
-});
-
-export default serverless(app);
+}
